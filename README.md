@@ -1,6 +1,6 @@
 # Birthday Wisher 🎂
 
-An interactive birthday site in 7 tap-through scenes: gift unwrap, cake with blowable candles (tap or mic), reason cards, flip-polaroid memories, balloon-pop wish, scratch card, and a typed letter. Music and sounds are synthesized in the browser.
+An interactive birthday site in 6 tap-through scenes: gift unwrap, cake with blowable candles (tap or mic), reason cards, balloon-pop wish, scratch card, and a typed letter. Music and sounds are synthesized in the browser.
 
 ## Run
 ```bash

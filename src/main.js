@@ -239,38 +239,6 @@ deck.addEventListener('keydown', (e) => {
   }
 });
 
-// ---------- 4. Memories ----------
-const memEmojis = ['📸', '🌅', '🎉', '🍕', '🚗', '🌙', '🎶', '☕'];
-const flipped = new Set();
-config.memories.forEach((m, i) => {
-  const card = el('button', 'polaroid');
-  card.style.setProperty('--tilt', `${rand(-4, 4)}deg`);
-  card.setAttribute('aria-label', `Memory: ${m.title}`);
-
-  const inner = el('span', 'inner');
-  const front = el('span', 'face front');
-  const pic = el('span', 'pic');
-  if (config.photos[i]) pic.style.backgroundImage = `url("${encodeURI(config.photos[i])}")`;
-  else pic.textContent = memEmojis[i % memEmojis.length];
-  front.append(pic, el('span', 'cap', m.title));
-
-  const back = el('span', 'face back');
-  back.append(el('strong', null, m.title), el('span', null, m.story));
-
-  inner.append(front, back);
-  card.append(inner);
-  card.addEventListener('click', () => {
-    card.classList.toggle('flipped');
-    sfx.chime(700 + i * 50);
-    flipped.add(i);
-    if (flipped.size === config.memories.length && $('#memories-next').classList.contains('hidden')) {
-      celebrate();
-      show($('#memories-next'));
-    }
-  });
-  $('#memories').append(card);
-});
-
 // ---------- 5. Balloons ----------
 const words = config.balloonWish.split(/\s+/).filter(Boolean);
 const palette = ['#ff5e8a', '#ffd166', '#06d6a0', '#4cc9f0', '#b388ff', '#ff8c42'];
