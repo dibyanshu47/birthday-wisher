@@ -24,17 +24,40 @@ jobs:
           node-version: 22
           cache: npm
 
-      # .env is gitignored. Paste its full contents into a repo secret named ENV_FILE.
+      # .env is gitignored. Provide values as repository secrets, either:
+      #   - one secret ENV_FILE containing the whole .env, or
+      #   - individual secrets named VITE_NAME, VITE_AGE, ... (these win over ENV_FILE)
       - name: Write .env
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
+          VITE_NAME: ${{ secrets.VITE_NAME }}
+          VITE_NICKNAME: ${{ secrets.VITE_NICKNAME }}
+          VITE_AGE: ${{ secrets.VITE_AGE }}
+          VITE_FROM: ${{ secrets.VITE_FROM }}
+          VITE_ACCENT: ${{ secrets.VITE_ACCENT }}
+          VITE_MUSIC: ${{ secrets.VITE_MUSIC }}
+          VITE_REASONS: ${{ secrets.VITE_REASONS }}
+          VITE_BALLOON_WISH: ${{ secrets.VITE_BALLOON_WISH }}
+          VITE_SECRET: ${{ secrets.VITE_SECRET }}
+          VITE_LETTER: ${{ secrets.VITE_LETTER }}
         run: |
           if [ -n "$ENV_FILE" ]; then
+            echo "Using ENV_FILE secret"
             printf '%s\n' "$ENV_FILE" > .env
           else
-            echo "ENV_FILE secret not set, using .env.example"
+            echo "ENV_FILE not set, starting from .env.example"
             cp .env.example .env
           fi
+          for key in VITE_NAME VITE_NICKNAME VITE_AGE VITE_FROM VITE_ACCENT VITE_MUSIC \
+                     VITE_REASONS VITE_BALLOON_WISH VITE_SECRET VITE_LETTER; do
+            val="${!key}"
+            [ -z "$val" ] && continue
+            val="${val#\"}"; val="${val%\"}"          # strip surrounding quotes if pasted with them
+            grep -v "^${key}=" .env > .env.tmp && mv .env.tmp .env
+            printf '%s="%s"\n' "$key" "$val" >> .env
+            echo "Override from secret: $key"
+          done
+          echo "Keys in .env: $(grep -o '^VITE_[A-Z_]*' .env | tr '\n' ' ')"
 
       - run: npm ci
       - run: npm run build
