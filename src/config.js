@@ -12,13 +12,13 @@ const DEFAULT_REASONS = [
 ];
 
 
-const name = env.VITE_NAME || 'Friend';
+const name = 'Shruti'; // hardcoded for now
 const reasons = list(env.VITE_REASONS);
 
 export const config = {
   name,
-  nickname: env.VITE_NICKNAME || name,
-  age: parseInt(env.VITE_AGE, 10) || null,
+  nickname: 'Sushhh', // hardcoded for now
+  age: 24, // hardcoded for now
   from: env.VITE_FROM || 'Your friend',
   accent: env.VITE_ACCENT || '#ff5e8a',
   music: env.VITE_MUSIC !== 'false',
