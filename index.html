@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#1b1035" />
+    <title>Happy Birthday!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="bg" aria-hidden="true"></div>
+    <canvas id="confetti" aria-hidden="true"></canvas>
+    <nav id="dots" aria-label="Progress"></nav>
+    <button id="sound-toggle" aria-label="Toggle sound">🔊</button>
+
+    <main id="app">
+      <!-- 1. Gift -->
+      <section class="scene active" id="s-gift">
+        <p class="eyebrow">Psst… <span data-bind="nickname"></span>, this one's for you</p>
+        <button class="gift" id="gift" aria-label="Unwrap your gift">
+          <span class="gift-lid"><span class="bow"></span></span>
+          <span class="gift-box"></span>
+        </button>
+        <p class="hint" id="gift-hint">Tap the gift to unwrap it</p>
+        <div class="hidden reveal" id="hello">
+          <h1 class="title" id="title"></h1>
+          <p class="sub" id="age-line"></p>
+          <p class="hint">(psst, tap the letters)</p>
+          <button class="btn next">Let's celebrate →</button>
+        </div>
+      </section>
+
+      <!-- 2. Cake -->
+      <section class="scene" id="s-cake">
+        <h2>Make a wish 🌟</h2>
+        <p class="hint">Tap each flame to blow it out, or <button class="link" id="mic-btn">actually blow 🎤</button></p>
+        <div class="cake lit" id="cake">
+          <div class="candles" id="candles"></div>
+          <div class="tier top"></div>
+          <div class="tier bottom"></div>
+          <div class="plate"></div>
+        </div>
+        <p class="status" id="cake-status"></p>
+        <button class="btn next hidden" id="cake-next">Next →</button>
+      </section>
+
+      <!-- 3. Reasons -->
+      <section class="scene" id="s-reasons">
+        <h2>Why you're awesome</h2>
+        <p class="hint">Tap the card to draw the next one</p>
+        <div class="deck" id="deck" role="button" tabindex="0" aria-label="Next reason"></div>
+        <p class="counter" id="reason-count"></p>
+        <button class="btn next hidden" id="reasons-next">Next →</button>
+      </section>
+
+      <!-- 4. Memories -->
+      <section class="scene" id="s-memories">
+        <h2>Our greatest hits</h2>
+        <p class="hint">Flip every polaroid</p>
+        <div class="memories" id="memories"></div>
+        <button class="btn next hidden" id="memories-next">Next →</button>
+      </section>
+
+      <!-- 5. Balloons -->
+      <section class="scene" id="s-balloons">
+        <h2>Pop them all 🎈</h2>
+        <p class="hint">Each balloon is hiding a word</p>
+        <p class="sentence" id="sentence"></p>
+        <div class="sky" id="sky"></div>
+        <button class="btn next hidden" id="balloons-next">Next →</button>
+      </section>
+
+      <!-- 6. Scratch -->
+      <section class="scene" id="s-scratch">
+        <h2>A little surprise</h2>
+        <p class="hint">Scratch the card with your finger or mouse</p>
+        <div class="scratch-wrap">
+          <div class="scratch-prize">
+            <span class="prize-emoji">🎁</span>
+            <p id="secret"></p>
+          </div>
+          <canvas id="scratch"></canvas>
+        </div>
+        <button class="btn next hidden" id="scratch-next">One last thing →</button>
+      </section>
+
+      <!-- 7. Letter -->
+      <section class="scene" id="s-letter">
+        <h2>For you, <span data-bind="nickname"></span></h2>
+        <p class="hint" id="env-hint">Tap the envelope</p>
+        <button class="envelope" id="envelope" aria-label="Open letter">
+          <span class="pocket"></span>
+          <span class="flap"></span>
+          <span class="seal">💌</span>
+        </button>
+        <article class="paper hidden" id="paper">
+          <p id="letter-text"></p>
+          <p class="sig hidden" id="sig">With love, <span data-bind="from"></span></p>
+        </article>
+        <div class="finale hidden" id="finale">
+          <button class="btn" id="more-confetti">🎉 More confetti</button>
+          <button class="btn ghost" id="replay">🔁 Start over</button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
